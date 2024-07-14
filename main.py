@@ -25,10 +25,10 @@ class Sdk:
         print('login')
 
     def try_booking(self, date):
-        self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=2&PT=1&D=' + date + '&D2=1')
+        self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=2&PT=1&D=' + date + '&D2=2')
         
         venue_types = ['A', 'B', 'C', 'D']
-        time_range = '06:00~07:00'
+        time_range = '17:00~18:00'
 
         try:
             conditions = " || ".join([f'onclickText.includes("羽 {vt}") && onclickText.includes("{time_range}")' for vt in venue_types])
@@ -73,7 +73,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='SDK script with parameters.')
     parser.add_argument('--account', type=str, required=True, help='account to the browser')
     parser.add_argument('--password', type=str, required=True, help='password to the browser')
-    parser.add_argument('--date', type=str, required=True, help='booking date')
 
     args = parser.parse_args()
 
@@ -86,8 +85,12 @@ if __name__ == "__main__":
     midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
     wait_time = (midnight - now).total_seconds()
     print(f'Waiting for {wait_time} seconds until midnight')
-    time.sleep(10)
     
-    sdk.keep_trying_booking(args.date)
+    two_weeks_later = (midnight + timedelta(weeks=2)).strftime('%Y/%m/%d')
+    print(f'Trying to book the venue for {two_weeks_later}')
+
+    time.sleep(wait_time)
+
+    sdk.keep_trying_booking(two_weeks_later)
     
     sdk.close()
