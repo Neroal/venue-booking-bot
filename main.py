@@ -1,6 +1,6 @@
 import time
 import argparse
-
+from datetime import datetime, timedelta
 from DrissionPage import ChromiumPage
 
 class Sdk:
@@ -8,60 +8,65 @@ class Sdk:
         self.page = ChromiumPage()
         self.page.set.auto_handle_alert()
 
-    def openLoginPage(self):
+    def open_login_page(self):
         self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=login_page&files=login')
-
         print('open')
 
     def close_entry_button(self):
         button = self.page.ele('css:.swal2-confirm.swal2-styled')
         button.click()
-
         print('close_entry_button')
-    
+
     def login(self, account, password):
         self.page('#ContentPlaceHolder1_loginid').input(account)
         self.page('#loginpw').input(password)
-
         time.sleep(0.5)
         self.page('#login_but').click()
-        
         print('login')
-    
-    def booking(self, date):
+
+    def try_booking(self, date):
         self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=2&PT=1&D=' + date + '&D2=1')
         
         venue_types = ['A', 'B', 'C', 'D']
         time_range = '06:00~07:00'
-        start_time = time.time()
 
         try:
-            while time.time() - start_time < 6:
-                for venue_type in venue_types:
-                    script = f"""
-                        var buttons = document.getElementsByName('PlaceBtn');
-                        for (var i = 0; i < buttons.length; i++) {{
-                            var onclickText = buttons[i].getAttribute('onclick');
-                            if (onclickText && onclickText.includes('羽 {venue_type}') && onclickText.includes('{time_range}')) {{
-                                buttons[i].click();
-                                return 'Button clicked: 羽 {venue_type} {time_range}';
-                            }}
-                        }}
-                        return 'Button not found for 羽 {venue_type} {time_range}';
-                    """
-                    result = self.page.run_js(script)
-                    print(result)
-                    if 'Button clicked' in result:
-                        return
-                time.sleep(0.1)
-            print('Timeout reached, button not found')
+            conditions = " || ".join([f'onclickText.includes("羽 {vt}") && onclickText.includes("{time_range}")' for vt in venue_types])
+            script = f"""
+                var success = false;
+                var buttons = document.getElementsByName('PlaceBtn');
+                for (var i = 0; i < buttons.length; i++) {{
+                    var onclickText = buttons[i].getAttribute('onclick');
+                    if (onclickText && ({conditions})) {{
+                        buttons[i].click();
+                        success = true;
+                    }}
+                }}
+                return success ? 'Button clicked' : 'Button not found';
+            """
+            result = self.page.run_js(script)
+            print(result)
+            if 'Button clicked' in result:
+                return True
         except Exception as e:
             print(f'Error clicking button: {e}')
+        return False
 
-        
+    def keep_trying_booking(self, date, interval=0.2, max_attempts=10):
+        attempts = 0
+        while attempts < max_attempts:
+            success = self.try_booking(date)
+            if success:
+                print('Successfully booked the venue.')
+                break
+            attempts += 1
+            print(f'Retrying in {interval} seconds... (Attempt {attempts}/{max_attempts})')
+            time.sleep(interval)
+        if attempts == max_attempts:
+            print('Reached maximum attempts. Exiting.')
+
     def close(self):
         self.page.close()
-
         print('close')
 
 if __name__ == "__main__":
@@ -73,11 +78,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     sdk = Sdk()
-    sdk.openLoginPage()
+    sdk.open_login_page()
     sdk.close_entry_button()
     sdk.login(args.account, args.password)
-    sdk.booking(args.date)
     
-    time.sleep(600)  # 保持浏览器打开60秒
+    now = datetime.now()
+    midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+    wait_time = (midnight - now).total_seconds()
+    print(f'Waiting for {wait_time} seconds until midnight')
+    time.sleep(10)
+    
+    sdk.keep_trying_booking(args.date)
     
     sdk.close()
