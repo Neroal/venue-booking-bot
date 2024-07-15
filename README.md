@@ -2,6 +2,8 @@
 
 This project is an Electron application that automates the process of booking venues. It uses a Python script for the automation logic and an HTML interface for user input.
 
+![demo](./demo.png)
+
 ## Project Setup
 
 ### Prerequisites
