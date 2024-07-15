@@ -1,8 +1,8 @@
 {
-  "name": "test",
-  "productName": "test",
+  "name": "venue-booking-bot",
+  "productName": "venue-booking-bot",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "venue-booking-bot",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",

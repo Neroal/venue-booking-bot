@@ -10,7 +10,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       enableRemoteModule: false
-    }
+    },
+    icon: path.join(__dirname, 'logo.icns')
   });
 
   win.loadFile('src/index.html');
