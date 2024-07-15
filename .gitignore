@@ -1,0 +1,23 @@
+# Virtual environment
+bot_env/
+venv/
+
+# PyInstaller
+/build/
+/dist/
+/*.spec
+
+# Python
+*.pyc
+__pycache__/
+
+# Node
+node_modules/
+npm-debug.log
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
