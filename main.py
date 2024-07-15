@@ -14,8 +14,9 @@ class Sdk:
 
     def close_entry_button(self):
         button = self.page.ele('css:.swal2-confirm.swal2-styled')
-        button.click()
-        print('close_entry_button')
+        if button:
+            button.click()
+            print('close_entry_button')
 
     def login(self, account, password):
         self.page('#ContentPlaceHolder1_loginid').input(account)
@@ -24,14 +25,13 @@ class Sdk:
         self.page('#login_but').click()
         print('login')
 
-    def try_booking(self, date):
-        self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=2&PT=1&D=' + date + '&D2=2')
+    def try_booking(self, date, time_slot, d2):
+        self.page.get(f'https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=2&PT=1&D={date}&D2={d2}')
         
         venue_types = ['A', 'B', 'C', 'D']
-        time_range = '17:00~18:00'
 
         try:
-            conditions = " || ".join([f'onclickText.includes("羽 {vt}") && onclickText.includes("{time_range}")' for vt in venue_types])
+            conditions = " || ".join([f'onclickText.includes("羽 {vt}") && onclickText.includes("{time_slot}")' for vt in venue_types])
             script = f"""
                 var success = false;
                 var buttons = document.getElementsByName('PlaceBtn');
@@ -52,10 +52,10 @@ class Sdk:
             print(f'Error clicking button: {e}')
         return False
 
-    def keep_trying_booking(self, date, interval=0.2, max_attempts=10):
+    def keep_trying_booking(self, date, time_slot, d2, interval=0.2, max_attempts=10):
         attempts = 0
         while attempts < max_attempts:
-            success = self.try_booking(date)
+            success = self.try_booking(date, time_slot, d2)
             if success:
                 print('Successfully booked the venue.')
                 break
@@ -73,6 +73,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='SDK script with parameters.')
     parser.add_argument('--account', type=str, required=True, help='account to the browser')
     parser.add_argument('--password', type=str, required=True, help='password to the browser')
+    parser.add_argument('--time_slot', type=str, required=True, help='time slot for booking')
+    parser.add_argument('--d2', type=int, required=True, help='D2 value for booking')
 
     args = parser.parse_args()
 
@@ -85,12 +87,12 @@ if __name__ == "__main__":
     midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
     wait_time = (midnight - now).total_seconds()
     print(f'Waiting for {wait_time} seconds until midnight')
+    time.sleep(wait_time)
     
+    # Calculate the date two weeks from midnight
     two_weeks_later = (midnight + timedelta(weeks=2)).strftime('%Y/%m/%d')
     print(f'Trying to book the venue for {two_weeks_later}')
 
-    time.sleep(wait_time)
-
-    sdk.keep_trying_booking(two_weeks_later)
+    sdk.keep_trying_booking(two_weeks_later, args.time_slot, args.d2)
     
     sdk.close()
