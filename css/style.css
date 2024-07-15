@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+.caveat-400 {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.caveat-500 {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.caveat-600 {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.caveat-700 {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas';
+  src: url('../webfonts/BebasNeue-Regular.ttf') format('truetype');
+}
+
+.bebas{
+  font-family: "Bebas", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+
+input:focus-visible{ outline: none;}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+a {
+  text-decoration: none;
+}
+
+.clearfix{clear: both;}
+
+::placeholder { color: #afafaf;}
+::-webkit-input-placeholder { color: #afafaf;}
+:-ms-input-placeholder { color: #afafaf;}
+::-moz-placeholder { color: #afafaf; opacity: 1;}
+
+
+.bk_main{
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(15,30,60,1) 100%);
+  height: 100%;
+  overflow: hidden;
+}
+
+h1{
+  font-size: 50px;
+  text-align: center;
+  color: #ffffff;
+  margin: 50px auto 30px;
+}
+
+.booking_box{
+  display: block;
+  border-radius: 20px;
+  background: rgb(0,30,89);
+  background: linear-gradient(0deg, rgba(0,30,89,0.7) 0%, rgba(0,40,120,0.5) 100%);
+  box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.1);
+  width: 85%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  overflow: hidden;
+}
+
+label{
+  font-size: 20px;
+  color: #387afb;
+  text-align: left;
+  display: block;
+  padding-left: 0.2em;
+  width: 100%;
+}
+input:-webkit-autofill { /* 移除預設autofill外觀 */
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+input {
+  -webkit-appearance: none; /* 移除預設外觀 */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input,
+select {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 1px 0px 0px rgba(56, 122, 251, 0.2), inset 0px -3px 6px 0px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 10px;
+  border: 0;
+  display: block;
+  width: 100%;
+  margin: 5px auto 20px;
+  padding: 10px 15px;
+}
+
+button{
+  font-size: 40px;
+  background-color: #0038a9;
+  color: #fff;
+  text-align: center;
+  border: none;
+  width: 100%;
+  margin: 30px auto 0;
+  display: block;
+  cursor: pointer;
+  height: 1.6em;
+  line-height: 1.6em;
+  border-radius: 0.8em;
+}
+
+.warn{
+  font-size: 20px;
+  text-align: left;
+  padding-left: 0.2em;
+  color: #000;
+  color: #c00;
+  border-radius: 10px;
+  border: 0;
+  display: block;
+  width: 100%;
+  margin: 5px auto 20px;
+  padding: 10px 15px;
+}

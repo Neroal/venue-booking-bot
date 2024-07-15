@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Venue Booking Bot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/style.css" rel="stylesheet" />
+    <title>Venue Booking Bot</title>
 </head>
-<body>
-  <h1>Venue Booking Bot</h1>
-  <form id="booking-form">
-    <label for="account">Account:</label>
-    <input type="text" id="account" name="account"><br><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"><br><br>
-    <label for="timeSlot">Time Slot:</label>
-    <select id="timeSlot" name="timeSlot">
-      <option value="06:00~07:00">06:00~07:00</option>
-      <option value="07:00~08:00">07:00~08:00</option>
-      <option value="08:00~09:00">08:00~09:00</option>
-      <option value="09:00~10:00">09:00~10:00</option>
-      <option value="10:00~11:00">10:00~11:00</option>
-      <option value="11:00~12:00">11:00~12:00</option>
-      <option value="12:00~13:00">12:00~13:00</option>
-      <option value="13:00~14:00">13:00~14:00</option>
-      <option value="14:00~15:00">14:00~15:00</option>
-      <option value="15:00~16:00">15:00~16:00</option>
-      <option value="16:00~17:00">16:00~17:00</option>
-      <option value="17:00~18:00">17:00~18:00</option>
-      <option value="18:00~19:00">18:00~19:00</option>
-      <option value="19:00~20:00">19:00~20:00</option>
-      <option value="20:00~21:00">20:00~21:00</option>
-      <option value="21:00~22:00">21:00~22:00</option>
-    </select><br><br>
-    <button type="button" id="submit">Submit</button>
-  </form>
-  <p id="output"></p>
-
-  <script src="renderer.js"></script>
+<body class="bk_main">
+    <h1 class="caveat-700">Venue Booking Bot</h1>
+    <form id="booking-form" class="booking_box">
+      <label for="account">Account</label>
+      <input type="text" id="account" name="account">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password">
+      <label for="timeSlot">Time Slot</label>
+      <select id="timeSlot" name="timeSlot">
+        <option value="06:00~07:00">06:00~07:00</option>
+        <option value="07:00~08:00">07:00~08:00</option>
+        <option value="08:00~09:00">08:00~09:00</option>
+        <option value="09:00~10:00">09:00~10:00</option>
+        <option value="10:00~11:00">10:00~11:00</option>
+        <option value="11:00~12:00">11:00~12:00</option>
+        <option value="12:00~13:00">12:00~13:00</option>
+        <option value="13:00~14:00">13:00~14:00</option>
+        <option value="14:00~15:00">14:00~15:00</option>
+        <option value="15:00~16:00">15:00~16:00</option>
+        <option value="16:00~17:00">16:00~17:00</option>
+        <option value="17:00~18:00">17:00~18:00</option>
+        <option value="18:00~19:00">18:00~19:00</option>
+        <option value="19:00~20:00">19:00~20:00</option>
+        <option value="20:00~21:00">20:00~21:00</option>
+        <option value="21:00~22:00">21:00~22:00</option>
+      </select>
+      <p id="output" class="warn"></p>
+      <button type="button" id="submit" class="caveat-700">Go!</button>
+    </form>
+  
+    <script src="renderer.js"></script>
 </body>
 </html>

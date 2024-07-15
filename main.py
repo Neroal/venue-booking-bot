@@ -10,13 +10,13 @@ class Sdk:
 
     def open_login_page(self):
         self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=login_page&files=login')
-        print('open')
+        print('open login page')
 
     def close_entry_button(self):
         button = self.page.ele('css:.swal2-confirm.swal2-styled')
         if button:
             button.click()
-            print('close_entry_button')
+            print('close entry button')
 
     def login(self, account, password):
         self.page('#ContentPlaceHolder1_loginid').input(account)
@@ -24,7 +24,6 @@ class Sdk:
         time.sleep(0.5)
         self.page('#login_but').click()
         print('login')
-
     def try_booking(self, date, time_slot, d2):
         self.page.get(f'https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=2&PT=1&D={date}&D2={d2}')
         
