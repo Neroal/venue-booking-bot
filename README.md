@@ -1,6 +1,6 @@
 # Venue Booking Bot
 
-This project is an Electron application that automates the process of booking venues. It uses a Python script for the automation logic and an HTML interface for user input.
+This project automates the process of booking venues using a Python script for the automation logic.
 
 ![demo](./demo.png)
 
@@ -8,21 +8,12 @@ This project is an Electron application that automates the process of booking ve
 
 ### Prerequisites
 
-- Node.js and npm
 - Python 3.x
 - pip (Python package installer)
 - PyInstaller (for packaging the Python script)
+- Flask
 
-### Step 1: Clone the Repository
-
-Clone the repository and navigate to the project directory:
-
-```bash
-git clone https://github.com/yourusername/venue-booking-bot.git
-cd venue-booking-bot
-```
-
-### Step 2: Set Up the Python Environment
+### Step 1: Set Up the Python Environment
 Create and activate a virtual environment:
 
 ```bash
@@ -32,63 +23,69 @@ source bot_env/bin/activate
 
 Install the required Python packages:
 ```bash
+pip install Flask
 pip install git+https://github.com/g1879/DrissionPage.git
 pip install pyinstaller
 ```
 
-### Step 3: Package the Python Script
+### Step 2: Package the Python Script
 Use PyInstaller to package the Python script into a standalone executable:
+
 ```bash
 pyinstaller --add-data "templates:templates" --add-data "static:static" --hidden-import "sdk" app.py
 ```
-This will create a dist directory with the packaged executable (main or main.exe).
+This will create a dist directory with the packaged executable (app or app.exe).
 
 ## Project Structure
 ```
 venue-booking-bot
 ├── dist
-│   └── main           # Packaged Python executable
-├── src
-│   ├── index.html     # HTML file for user interface
-│   ├── main.js        # Main process script for Electron
-│   ├── preload.js     # Preload script for Electron
-│   └── renderer.js    # Renderer process script for Electron
-├── main.py            # Python script for automation logic
-├── package.json       # Project configuration for npm
+│   └── app           # Packaged Python executable
+├── templates          # HTML templates for Flask
+│   └── index.html     # HTML file for user interface
+├── static             # Static files for Flask
+│   └── style.css      # CSS file for styling
+├── app.py             # Python script for web browser
+├── sdk.py             # Python script containing the booking SDK logic
 └── README.md          # Project documentation
+
 ```
 
 ## Files
 
-`main.py`
-This is the Python script containing the automation logic. It uses the DrissionPage library to interact with the website.
+`app.py`
+This is the main Python script containing the Flask application and automation logic. It uses the DrissionPage library to interact with the website and handles user input via the web interface.
 
-`src/main.js`
-This is the main process script for the Electron application. It creates the browser window and handles communication between the renderer process and the Python script.
+`sdk.py`
+This script contains the logic for the booking SDK. It includes methods for logging in, trying to book, and other related functionalities.
 
-`src/preload.js`
-This script is used to securely expose Node.js functionality to the renderer process.
+`templates/index.html`
+This is the HTML file that defines the user interface for the application. It uses Flask to render the interface.
 
-`src/renderer.js`
-This script handles the front-end logic and communicates with the main process.
+`static/styles.css`
+This file contains the CSS styling for the user interface.
 
-`src/index.html`
-This is the HTML file that defines the user interface for the application.
+
 
 ## Configuration
-In src/main.js, ensure the path to the Python executable is correct:
-
-```
-const pythonExecutablePath = path.join(__dirname, '../dist/main'); // Adjust this path if necessary
-```
-In main.py, ensure the script logic is correct for your booking needs
+Ensure the path to the Python executable is correct in your setup and that the script logic in main.py and sdk.py is correct for your booking needs.
 
 ## Usage
 1. Fill in the account and password fields.
 2. Select the desired time slot from the dropdown menu.
 3. Click the "Submit" button to start the booking process.
 
-## Troubleshooting
-If you encounter issues with the Python script not being found, ensure the path in src/main.js is correct and that the Python script has been packaged correctly with PyInstaller.
+## Running the Application
+```
+cd dist
+./app  # or app.exe on Windows
+```
+Alternatively, you can run the Flask application directly using the Python script:
+```
+python3 app.py
+```
 
-If you encounter other issues, check the developer tools console for error messages and ensure all dependencies are installed correctly.
+## Troubleshooting
+f you encounter issues with the Python script not being found, ensure the path is correct and that the Python script has been packaged correctly with PyInstaller.
+
+If you encounter other issues, check the Flask application logs for error messages and ensure all dependencies are installed correctly.
