@@ -1,5 +1,5 @@
+# sdk.py
 import time
-import argparse
 from datetime import datetime, timedelta
 from DrissionPage import ChromiumPage
 
@@ -55,10 +55,24 @@ class Sdk:
             print(f'Error clicking button: {e}')
         return False
 
-    def keep_trying_booking(self, date, time_slot, d2, interval=0.2, max_attempts=5):
+    def keep_trying_booking(self, time_slot, interval=0.2, max_attempts=5):
+        now = datetime.now()
+        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+        wait_time = (midnight - now).total_seconds()
+        two_weeks_later = (midnight + timedelta(weeks=2)).strftime('%Y/%m/%d')
+
+        start_time = time_slot.split("~")[0]
+        d2 = 1
+        if "06:00" <= start_time < "11:00":
+            d2 = 1
+        elif "11:00" <= start_time < "17:00":
+            d2 = 2
+        elif "17:00" <= start_time < "22:00":
+            d2 = 3
+
         attempts = 0
         while attempts < max_attempts:
-            success = self.try_booking(date, time_slot, d2)
+            success = self.try_booking(two_weeks_later, time_slot, d2)
             if success:
                 print('Successfully booked the venue.')
                 break
@@ -70,28 +84,3 @@ class Sdk:
 
     def close(self):
         self.page.close()
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='SDK script with parameters.')
-    parser.add_argument('--account', type=str, required=True, help='account to the browser')
-    parser.add_argument('--password', type=str, required=True, help='password to the browser')
-    parser.add_argument('--time_slot', type=str, required=True, help='time slot for booking')
-    parser.add_argument('--d2', type=int, required=True, help='D2 value for booking')
-
-    args = parser.parse_args()
-
-    sdk = Sdk()
-    sdk.open_login_page()
-    sdk.close_entry_button()
-    sdk.login(args.account, args.password)
-    
-    now = datetime.now()
-    midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    wait_time = (midnight - now).total_seconds()
-    two_weeks_later = (midnight + timedelta(weeks=2)).strftime('%Y/%m/%d')
-
-    time.sleep(wait_time)
-    
-    sdk.keep_trying_booking(two_weeks_later, args.time_slot, args.d2)
-    
-    sdk.close()

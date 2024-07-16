@@ -39,21 +39,9 @@ pip install pyinstaller
 ### Step 3: Package the Python Script
 Use PyInstaller to package the Python script into a standalone executable:
 ```bash
-pyinstaller --onefile main.py
+pyinstaller --add-data "templates:templates" --add-data "static:static" --hidden-import "sdk" app.py
 ```
 This will create a dist directory with the packaged executable (main or main.exe).
-
-### Step 4: Set Up the Electron Application
-Install the necessary Node.js packages:
-```bash
-npm install
-```
-
-### Step 5: Run the Application
-Start the Electron application:
-```bash
-npm start
-```
 
 ## Project Structure
 ```
