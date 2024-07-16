@@ -1,10 +1,18 @@
-# Venue Booking Bot
-
 This project automates the process of booking venues using a Python script for the automation logic.
 
 ![demo](./demo.png)
 
-## Project Setup
+# Project Setup
+## Option 1: Download and Run the Executable
+You can download the pre-built executable from the following link:
+- `macOS`: https://reurl.cc/gGKqaQ
+- `windows`:
+
+After downloading, unzip the file and run the executable:
+```
+./app
+```
+## Option 2: Set Up the Python Environment
 
 ### Prerequisites
 
@@ -40,14 +48,14 @@ This will create a dist directory with the packaged executable (app or app.exe).
 ```
 venue-booking-bot
 ├── dist
-│   └── app           # Packaged Python executable
-├── templates          # HTML templates for Flask
-│   └── index.html     # HTML file for user interface
-├── static             # Static files for Flask
-│   └── style.css      # CSS file for styling
-├── app.py             # Python script for web browser
-├── sdk.py             # Python script containing the booking SDK logic
-└── README.md          # Project documentation
+│   └── app           
+├── templates          
+│   └── index.html     
+├── static             
+│   └── style.css      
+├── app.py             
+├── sdk.py             
+└── README.md          
 
 ```
 
@@ -78,7 +86,7 @@ Ensure the path to the Python executable is correct in your setup and that the s
 ## Running the Application
 ```
 cd dist
-./app  # or app.exe on Windows
+./app
 ```
 Alternatively, you can run the Flask application directly using the Python script:
 ```
