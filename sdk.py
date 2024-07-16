@@ -10,6 +10,7 @@ class Sdk:
 
     def open_login_page(self):
         self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=login_page&files=login')
+        print('open login page')
 
     def close_entry_button(self):  
         button = self.page.ele('css:.swal2-confirm.swal2-styled')
@@ -22,6 +23,7 @@ class Sdk:
         self.page('#ContentPlaceHolder1_loginid').input(account)
         self.page('#loginpw').input(password)
         self.page('#login_but').click()
+        print('login')
 
         while True:
             if self.page.url == "https://scr.cyc.org.tw/tp01.aspx?Module=ind&files=ind":
@@ -60,6 +62,10 @@ class Sdk:
         midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
         wait_time = (midnight - now).total_seconds()
         two_weeks_later = (midnight + timedelta(weeks=2)).strftime('%Y/%m/%d')
+
+        print(f'Prepare to book the venue for {two_weeks_later}')
+        print(f'{wait_time} seconds remaining until booking starts')
+        time.sleep(wait_time)
 
         start_time = time_slot.split("~")[0]
         d2 = 1
