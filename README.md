@@ -89,3 +89,6 @@ python3 app.py
 f you encounter issues with the Python script not being found, ensure the path is correct and that the Python script has been packaged correctly with PyInstaller.
 
 If you encounter other issues, check the Flask application logs for error messages and ensure all dependencies are installed correctly.
+
+## Note for macOS Users
+This documentation and setup instructions are specifically tailored for macOS users. Ensure that you follow the steps closely and use the appropriate commands for creating virtual environments, installing dependencies, and packaging the application. If you are running this project on Windows, make sure to adjust the commands and paths accordingly.
