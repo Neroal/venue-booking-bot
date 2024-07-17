@@ -3,16 +3,7 @@ This project automates the process of booking venues using a Python script for t
 ![demo](./demo.png)
 
 # Project Setup
-## Option 1: Download and Run the Executable
-You can download the pre-built executable from the following link:
-- `macOS`: https://reurl.cc/gGKqaQ
-- `windows`:
-
-After downloading, unzip the file and run the executable:
-```
-./app
-```
-## Option 2: Set Up the Python Environment
+## Option 1: Set Up the Python Environment
 
 ### Prerequisites
 
@@ -44,7 +35,7 @@ pyinstaller --add-data "templates:templates" --add-data "static:static" --hidden
 ```
 This will create a dist directory with the packaged executable (app or app.exe).
 
-## Project Structure
+# Project Structure
 ```
 venue-booking-bot
 ├── dist
@@ -59,7 +50,7 @@ venue-booking-bot
 
 ```
 
-## Files
+# Files
 
 `app.py`
 This is the main Python script containing the Flask application and automation logic. It uses the DrissionPage library to interact with the website and handles user input via the web interface.
@@ -75,15 +66,15 @@ This file contains the CSS styling for the user interface.
 
 
 
-## Configuration
+# Configuration
 Ensure the path to the Python executable is correct in your setup and that the script logic in main.py and sdk.py is correct for your booking needs.
 
-## Usage
+# Usage
 1. Fill in the account and password fields.
 2. Select the desired time slot from the dropdown menu.
 3. Click the "Submit" button to start the booking process.
 
-## Running the Application
+# Running the Application
 ```
 cd dist
 ./app
@@ -93,10 +84,10 @@ Alternatively, you can run the Flask application directly using the Python scrip
 python3 app.py
 ```
 
-## Troubleshooting
+# Troubleshooting
 f you encounter issues with the Python script not being found, ensure the path is correct and that the Python script has been packaged correctly with PyInstaller.
 
 If you encounter other issues, check the Flask application logs for error messages and ensure all dependencies are installed correctly.
 
-## Note for macOS Users
+# Note for macOS Users
 This documentation and setup instructions are specifically tailored for macOS users. Ensure that you follow the steps closely and use the appropriate commands for creating virtual environments, installing dependencies, and packaging the application. If you are running this project on Windows, make sure to adjust the commands and paths accordingly.
