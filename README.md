@@ -91,3 +91,10 @@ If you encounter other issues, check the Flask application logs for error messag
 
 # Note for macOS Users
 This documentation and setup instructions are specifically tailored for macOS users. Ensure that you follow the steps closely and use the appropriate commands for creating virtual environments, installing dependencies, and packaging the application. If you are running this project on Windows, make sure to adjust the commands and paths accordingly.
+
+# Download Executables
+
+## Windows
+https://reurl.cc/jWx3R1
+## MacOS
+https://reurl.cc/OMdGER
