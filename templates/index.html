@@ -18,25 +18,21 @@
             <input type="text" id="account" name="account" value="{{ account }}" required/>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" value="{{ password }}"  required/>
+
             <label for="timeSlot">Time Slot</label>
-            <select id="timeSlot" name="timeSlot" required>
-                <option value="6" {% if time_slot == '6' %}selected{% endif %}>06:00~07:00</option>
-                <option value="7" {% if time_slot == '7' %}selected{% endif %}>07:00~08:00</option>
-                <option value="8" {% if time_slot == '8' %}selected{% endif %}>08:00~09:00</option>
-                <option value="9" {% if time_slot == '9' %}selected{% endif %}>09:00~10:00</option>
-                <option value="10" {% if time_slot == '10' %}selected{% endif %}>10:00~11:00</option>
-                <option value="11" {% if time_slot == '11' %}selected{% endif %}>11:00~12:00</option>
-                <option value="12" {% if time_slot == '12' %}selected{% endif %}>12:00~13:00</option>
-                <option value="13" {% if time_slot == '13' %}selected{% endif %}>13:00~14:00</option>
-                <option value="14" {% if time_slot == '14' %}selected{% endif %}>14:00~15:00</option>
-                <option value="15" {% if time_slot == '15' %}selected{% endif %}>15:00~16:00</option>
-                <option value="16" {% if time_slot == '16' %}selected{% endif %}>16:00~17:00</option>
-                <option value="17" {% if time_slot == '17' %}selected{% endif %}>17:00~18:00</option>
-                <option value="18" {% if time_slot == '18' %}selected{% endif %}>18:00~19:00</option>
-                <option value="19" {% if time_slot == '19' %}selected{% endif %}>19:00~20:00</option>
-                <option value="20" {% if time_slot == '20' %}selected{% endif %}>20:00~21:00</option>
-                <option value="21" {% if time_slot == '21' %}selected{% endif %}>21:00~22:00</option>
+            <select id="timeSlot" name="timeSlot">
+                {% for slot in time_slots %}
+                <option value="{{ slot.value }}" {% if time_slot == slot.value %}selected{% endif %}>{{ slot.label }}</option>
+                {% endfor %}
             </select>
+
+            <label for="region">Region</label>
+            <select id="region" name="region">
+                {% for region in regions %}
+                <option value="{{ region.site }}" {% if region.site == region %}selected{% endif %}>{{ region.name }}</option>
+                {% endfor %}
+            </select>
+            
             <p id="output" class="warn">Recommend executing 5 minutes before the website refreshes!</p>
             <button type="submit" id="submit" class="caveat-700">Go!</button>
         </form>

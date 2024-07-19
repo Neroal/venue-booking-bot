@@ -1,4 +1,3 @@
-# sdk.py
 import time
 from datetime import datetime, timedelta
 from DrissionPage import ChromiumPage, ChromiumOptions
@@ -6,15 +5,16 @@ import requests
 import threading
 
 class Sdk:
-    def __init__(self):
-        co  = ChromiumOptions().auto_port()
+    def __init__(self, region_config):
+        co = ChromiumOptions().auto_port()
         self.page = ChromiumPage(co)
         self.page.set.auto_handle_alert()
         self.cookies = {}
-        self.venus_ids = [83, 84, 1074, 1075]
+        self.ids = region_config['ids']
+        self.base_url = f'https://scr.cyc.org.tw/{region_config["site"]}.aspx'
 
     def open_login_page(self):
-        self.page.get('https://scr.cyc.org.tw/tp01.aspx?module=login_page&files=login')
+        self.page.get(f'{self.base_url}?module=login_page&files=login')
 
     def close_entry_button(self):  
         button = self.page.ele('css:.swal2-confirm.swal2-styled')
@@ -29,7 +29,7 @@ class Sdk:
         self.page('#loginpw').input(password)
         self.page('#login_but').click()
 
-        self.page.wait.url_change('https://scr.cyc.org.tw/tp01.aspx?Module=ind&files=ind', timeout=10)
+        self.page.wait.url_change(f'{self.base_url}?Module=ind&files=ind', timeout=10)
         
         self.cookies = self.page.cookies()
     
@@ -41,11 +41,12 @@ class Sdk:
 
         # mark for fast testing
         time.sleep(wait_time)
+        # two_weeks_later = "2024/08/01"
 
         threads = []
         for _ in range(10):
-            for id in self.venus_ids:
-                url = f'https://scr.cyc.org.tw/tp01.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid={id}&QTime={time_slot}&PT=1&D={two_weeks_later}'
+            for id in self.ids:
+                url = f'{self.base_url}?module=net_booking&files=booking_place&StepFlag=25&QPid={id}&QTime={time_slot}&PT=1&D={two_weeks_later}'
                 thread = threading.Thread(target=self.fetch, args=(url,))
                 threads.append(thread)
                 thread.start()
@@ -54,9 +55,8 @@ class Sdk:
             thread.join()
 
     def fetch(self, url):
-        # print('fetch:', url)
         session = requests.Session()
         for cookie in self.cookies:
             session.cookies.set(cookie['name'], cookie['value'])
         
-        response = session.get(url)
+        session.get(url)
