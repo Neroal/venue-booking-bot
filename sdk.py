@@ -40,8 +40,8 @@ class Sdk:
         two_weeks_later = (midnight + timedelta(weeks=2)).strftime('%Y/%m/%d')
 
         # mark for fast testing
-        time.sleep(wait_time)
-        # two_weeks_later = "2024/08/01"
+        # time.sleep(wait_time)
+        two_weeks_later = "2024/08/02"
 
         threads = []
         for _ in range(10):
@@ -55,6 +55,9 @@ class Sdk:
             thread.join()
 
     def fetch(self, url):
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(f'[{current_time}] fetch {url}')
+        
         session = requests.Session()
         for cookie in self.cookies:
             session.cookies.set(cookie['name'], cookie['value'])
